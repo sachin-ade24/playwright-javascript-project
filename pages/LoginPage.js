@@ -9,6 +9,13 @@ export class LoginPage extends BasePage {
     this.loginButton = '[data-test-id="signin"]';
   }
 
+  get selectors() {
+    return {
+      EMAIL_INPUT: '[data-test-id="input-email"] > div',
+      PASSWORD_INPUT: '[data-test-id="input-password"] > div'
+    };
+  }
+
   get strings() {
     return {
       URL: "https://demo.haroldwaste.com/authentication"
@@ -44,12 +51,14 @@ export class LoginPage extends BasePage {
   }
 
   async assertFieldErrorHighlight() {
-    await expect(
-      this.page.locator('[data-test-id="input-email"] > div')
-    ).toHaveCSS("border-color", "rgb(228, 0, 68)");
-    await expect(
-      this.page.locator('[data-test-id="input-password"] > div')
-    ).toHaveCSS("border-color", "rgb(228, 0, 68)");
+    await expect(this.page.locator(this.selectors.EMAIL_INPUT)).toHaveCSS(
+      "border-color",
+      "rgb(228, 0, 68)"
+    );
+    await expect(this.page.locator(this.selectors.PASSWORD_INPUT)).toHaveCSS(
+      "border-color",
+      "rgb(228, 0, 68)"
+    );
   }
 }
 
